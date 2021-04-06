@@ -1,0 +1,79 @@
+#link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=s3r8_Aug4y8
+
+#MÓDULOS E PACOTES
+
+#DESAFIO 107
+#crie um módulo chamado moeda.py que tenha as funções incorporadas aumentar(), diminuir(), dobra() e metade(). Faça
+#também um programa que importe esse módulo e use algumas dessas funções.
+
+#DESAFIO 108
+#adapte o código do DESAFIO 107, criando uma função adicional chamada moeda() que consiga mostrar os valores como
+#um valor monetário formatado.
+
+#DESAFIO 109
+#modifique as funções que foram no DESAFIO 107 para que elas aceitem um parâmetro a mais, informando se o valor
+#retornado por elas vai ser ou não formatado pela função moeda(), desenvolvida no DESAFIO 108.
+
+#DESAFIO 110
+#adicione ao módulo moeda.py criado nos desafios anteriores, uma função chamada resumo(), que mostre na tela algumas
+#informações geradas pelas funções que já temos no módulo criado até aqui.
+
+#DESAFIO 111
+#crie um pacote chamado utilidadesCeV que tenha dois módulos internos chamados moeda o dado. Transfira todas as
+#funções utilizadas nos DESAFIOS 107, 108 e 109 para o primeiro pacote e mantenha tudo funcionando.
+
+#DESAFIO 112
+#dentro do pacote utilidadesCeV que criamos no DESAFIO 111, temos um módulo chamado dado. Crie uma função chamada
+#leiaDinheiro() que seja capaz de funcionar como a função input(), mas com uma validação de dados para aceitar apenas
+#valores que sejam monetários.
+
+#criando o módulo moeda (criado em outro arquivo moeda.py)
+'''
+#criando o módulo moeda
+
+def aumentar(preço, taxa, formato=False):
+    res = preço + (preço * taxa/100)
+    return res if formato is False else moeda(res)
+
+def diminuir(preço, taxa, formato=False):
+    res = preço - (preço * taxa/100)
+    return res if formato is False else moeda(res)
+
+def dobra(preço, formato=False):
+    res = preço * 2
+    return res if formato is False else moeda(res)
+
+def metade(preço, formato=False):
+    res = preço / 2
+    return res if formato is False else moeda(res)
+
+def moeda(preço=0, moeda='R$'):
+    return f'{moeda} {preço:.2f}'.replace('.', ',')
+
+def resumo(preço=0, taxaa=10, taxar=5):
+    print('-'*40)
+    print("RESUMO DA SIMULAÇÃO".center(40))
+    print('-'*40)
+    print(f"Preço analisado: \t\t{moeda(preço)}")
+    print(f"Dobro do preço: \t\t{dobra(preço, True)}")
+    print(f"Metade do preço: \t\t{metade(preço, True)}")
+    print(f"Com {taxaa}% de aumento: \t{aumentar(preço, taxaa, True)}")
+    print(f"Com {taxar}% de redução: \t{diminuir(preço, taxar, True)}")
+    print('-'*40)
+
+#criando o módulo dado
+
+def leiaDinheiro(msg):
+    válido = False
+    while not válido:
+        entrada = str(input(msg)).replace(',', '.').strip()
+        if entrada.isalpha() or entrada == '':
+            print(f"\033[0;31mERRRO -> A informação \'{entrada}'\ é um preço inválido!\033[m")
+        else:
+            válido = True
+            return float(entrada)
+'''
+#Programa Principal
+from utilidadescev import moeda, dado
+p = dado.leiaDinheiro("Digite o preço: R$ ")
+moeda.resumo(p)
