@@ -1,0 +1,139 @@
+#link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=0LB3FSfjvao
+
+'''
+Em Python, tem 3 formas de variáveis compostas: tuplas (), listas [] ou dicionários {}. Variáveis compostas podem armazenar na
+memória diversos valores em uma mesma variável. As strings por si só acabam sendo uma variável composta também.
+Tuplas são imutáveis. Você pode até deletá-la, organizá-la, mas não alterá-la.
+
+#TUPLAS
+
+print("Hello world! ", end = '')
+alimentos = ("rapadura", "tambaqui", "pudim", "açaí")
+print(f"A resposta é {alimentos[2]}.")
+
+#DESAFIO 072
+#crie um programa que tenha uma tupla totalmente preenchida com uma contagem por extenso, de zero até vinte.
+#seu programa deverá ler um número pelo teclado (entre 0 e 20) e mostrá-lo por extenso.
+
+numeros = ("zero", "um", "dois", "três", "quatro",
+           "cinco", "seis", "sete", "oito", "nove",
+           "dez", "onze", "doze", "treze", "quatorze",
+           "quinze", "dezesseis", "dezesete", "dezoito",
+           "dezenove", "vinte")
+range = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+         10, 11, 12, 13, 14, 15, 16, 17,
+         18, 19, 20)
+
+while True:
+    n = ' '
+    while n not in range:
+        n = int(input("Digite um número de 0 a 20: "))
+    print(f"Você digitou o número {numeros[n]}.")
+
+    continuar = ' '
+    while continuar not in "SN":
+        continuar = str(input("Quer continuar? [S/N] ")).strip().upper()[0]
+    if continuar == "N":
+        break
+
+print("Fim do programa!")
+
+#DESAFIO 073
+#crie uma tupla preenchida com os 20 primeiros colocados da tabela do campeonato brasileiro de futebol, na ordem de
+#colocação. Depois mostre: a) apenas os 5 primeiros colocados, b) os últimos 4 colocados na tabela, c) uma lista
+#com os times em ordem alfabética, d) em que posição da tabela está o time Corinthians.
+
+classificacao = ('Internacional', 'Flamengo', 'Atlético-MG', 'Fluminense', 'São Paulo',
+                 'Santos', 'Palmeiras', 'Fortaleza', 'Grêmio', 'Ceará', 'Atlético-GO',
+                 'Sport', 'Corinthians', 'Bahia', 'Red Bull Bragantino', 'Botafogo',
+                 'Vasco da Gama', 'Atlético-PR', 'Coritiba', 'Goiás')
+
+print("<<< INFORMAÇÕES DO CAMPEONATO >>>")
+print(f"Os 5 primeiros colocados são {classificacao[:5]}.")
+print("-="*30)
+print(f"Os 4 últimos colocados são {classificacao[-4:]}.")
+print("-="*30)
+print(f"Times em ordem alfabética {sorted(classificacao)}.")
+print("-="*30)
+print(f"O todo-poderoso Corinthians está na {classificacao.index('Corinthians')+1}a. posição.")
+
+#DESAFIO 074
+#crie um programa que vai gerar cinco números aleatórios e colocar em uma tupla. Depois disso, mostre a
+#listagem de números gerados e também indique o menor e o maior valor que estão na tupla.
+
+from random import choice
+from time import sleep
+
+numeros = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+PC1 = choice(numeros)
+PC2 = choice(numeros)
+PC3 = choice(numeros)
+PC4 = choice(numeros)
+PC5 = choice(numeros)
+sorteio = (PC1, PC2, PC3, PC4, PC5)
+
+print("Robozinho está escolhendo 5 números...")
+sleep(3)
+
+print(f"Os valores escolhidos foram: ", end = '')
+for n in sorteio:
+    print(f"{n} ", end = '')
+ordem = sorted(sorteio)
+sleep(1)
+print(f"\nO maior valor escolhido foi {ordem[4]}.") #também poderia ser com max(numeros) sem nem usar a variável ordem
+sleep(1)
+print(f"O menor valor escolhido foi {ordem[0]}.") #também poderia ser com min(numeros) sem nem usar a variável ordem
+
+#DESAFIO 075
+#desenvolva um programa que leia quatro valores pelo teclado e guarde-os em uma tupla. No final, mostre: a) quantas
+#vezes apareceu o valor 9, b) em que posição foi digitado o primeiro valor 3, c) quais foram os números pares.
+
+numeros = (int(input("Digite um número: ")),
+           int(input("Digite outro número: ")),
+           int(input("Digite aí mais um númerozinho pra nóis: ")),
+           int(input("Digite só mais um número então agora vai: ")))
+
+print(f"Você digitou os valores {numeros}.")
+print(f"O valor 9 apareceu {numeros.count(9)} vez(es).")
+if 3 in numeros:
+    print(f"O valor 3 foi digitado na {numeros.index(3)+1}a. posição.")
+else:
+    print("O valor 3 não foi digitado em nenhuma posição.")
+print(f"Os valores pares digitados foram ", end = '')
+for n in numeros:
+    if n % 2 == 0:
+        print(n, end = ' ')
+
+#DESAFIO 076
+#crie um programa que tenha uma tupla única com nomes de produtos e seus respectivos preços na sequência. No final,
+#mostre uma listagem de preços, organizando os dados em forma tabular.
+
+listagem = ('Laptop', 3800, 'Cadeira gamer', 1200, 'Escrivaninha', 850, 'Porta canetas', 12.50,
+            'Playstation 4', 2500, 'Mesa de sinuca', 3100, 'Sofá', 850)
+
+print('-' * 40)
+print(f'{"TABELA DE PREÇOS":^40}')
+print('-' * 40)
+
+for item in range(0, len(listagem)):
+    if item % 2 == 0: # porque todo item está em posições pares dentro da tupla
+        print(f'{listagem[item]:.<30}', end = ' ') #para 30 espaços completos, completar com pontinhos ...
+    else:
+        print(f'R$ {listagem[item]:>7.2f}')
+
+print('-' * 40)
+
+#DESAFIO 077
+#crie um programa que tenha uma tupla com várias palavras (não usar acentos). Depois disso, você deve mostrar
+#para cada paavra quais são as suas vogais.
+
+palavras = ('aprender', 'programar', 'linguagem', 'python',
+            'curso', 'gratis', 'estudar', 'praticar',
+            'trabalhar', 'mercado', 'programador', 'futuro')
+
+for palavra in palavras:
+    print(f'\nNa palavra {palavra.strip().upper()} temos as vogais: ', end=' ')
+    for letra in palavra:
+        if letra.lower() in 'aeiou':
+            print(letra, end=' ')
+'''
