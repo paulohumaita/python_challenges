@@ -1,0 +1,127 @@
+#link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=oOUyhGNib2Q&list=PLvc0DmYAIOLow7L0BZxG5CeDuy8-7BNdA
+
+#UTILIZANDO MÓDULOS
+
+#bibliotecas utilizadas aqui: math, random, pygame
+
+'''
+#DESAFIO 016
+#crie um programa que leia um número real qualquer pelo teclado e mostre na
+#tela a sua porção inteira
+
+#pode simplesmente fazer uma simples transformação de float para int, sem usar módulos adicionais
+
+real = float(input('Digite um número real: '))
+
+print('A porção inteira do número é', int(real))
+
+#utilizando a biblioteca math, pode ser feita usando o método trunc
+
+from math import trunc #como é a parte específica da biblioteca, pode importar somente ela para que o código fique mais leve
+import math
+real = float(input('Digite um número real: '))
+
+print('A porção inteira do número é {}'.format(math.trunc(real)))
+
+#DESAFIO 017
+#faça um programa que leia o comprimento do cateto oposto e do cateto
+#adjacente de um triângulo retângulo, calcule e mostre o comprimento da
+#hipotenusa
+
+co = float(input('Quanto mede o cateto oposto? '))
+ca = float(input('Quanto mede o cateto adjacente? '))
+
+#o teorema de Pitágoras diz que a² + b² = c², sendo 'a' e 'b' os catetos e 'c' a hipotenusa
+
+hipotenusa = (co**2 + ca**2)**(1/2) #uma vez que hipotenusa é a raiz quadrada da soma dos catetos
+
+print('A hipotenusa deste triângulo retângulo é {:.2f}.'.format(hipotenusa))
+
+#outra forma de fazer é usando a biblioteca 'math' e usar o método 'hypot'
+
+import math
+
+co = float(input('Quanto mede o cateto oposto? '))
+ca = float(input('Quanto mede o cateto adjacente? '))
+
+hipotenusa = math.hypot(co, ca)
+
+print('A hipotenusa deste triângulo retângulo é {:.2f}.'.format(hipotenusa))
+
+#DESAFIO 018
+#faça um programa que leia um ângulo qualquer e mostre na tela o valor do
+#seno, cosseno e tangente desse ângulo
+
+import math
+
+angle = float(input("Digite o ângulo desejado: "))
+
+seno = math.sin(math.radians(angle)) #o 'x' que é passado no parâmetro é em radianos, então é necessário transformar, para isso usar 'radians'
+cosseno = math.cos(math.radians(angle))
+tangente = math.tan(math.radians(angle))
+
+print("O ângulo de {} tem como SENO {:.2f}, como COSENO {:.2f} e como TANGENTE {:.2f}.".format(angle, seno, cosseno, tangente))
+
+#DESAFIO 019
+#um professor quer sortear um dos seus quatro alunos para apagar o quadro.
+#Faça um programa que ajude ele, lendo o nome deles e escrevendo o nome do escolhido
+
+from random import choice
+
+a1 = str(input('Qual o nome do aluno 1? '))
+a2 = str(input('Qual o nome do aluno 2? '))
+a3 = str(input('Qual o nome do aluno 3? '))
+a4 = str(input('Qual o nome do aluno 4? '))
+
+names_list = [a1, a2, a3, a4]
+
+print("Os nomes dos alunos são {}, {}, {} e {} e \n pelo sorteio é {} quem vai apagar o quadro.".format(a1, a2, a3, a4, choice(names_list)))
+
+#DESAFIO 020
+#o mesmo professor do desafio anterior quer sortear a ordem de apresentação
+#de trabalho dos alunos. Faça um programa que leia o nome dos quatro alunos
+#e mostre a ordem sorteada
+
+from random import shuffle
+
+a1 = input("Qual o nome do aluno 1? ")
+a2 = input("Qual o nome do aluno 2? ")
+a3 = input("Qual o nome do aluno 3? ")
+a4 = input("Qual o nome do aluno 4? ")
+
+names_list = [a1, a2, a3, a4]
+shuffle(names_list)
+
+print("A ordem de apresentação será: ")
+print(names_list)
+
+#print("Os alunos são: {}, {}, {} e {}. \n A ordem de apresentação será: {}, depois {}, depois {} e finalmente {}.".format(a1, a2, a3, a4, student1, student2, student3, student4))
+
+#a1 = input('Nome do primeiro aluno: ')
+#a2 = input('Nome do segundo aluno: ')
+#a3 = input('Nome do terceiro aluno: ')
+#a4 = input('Nome do quarto aluno: ')
+
+#alunos = {a1, a2, a3, a4}
+
+#sort = float(random.alunos())
+#print(sort)
+
+#DESAFIO 021
+#faça um programa em Python que abra e reproduza o áudio de um arquivo MP3
+
+import pygame
+
+pygame.init() #a primeira coisa a ser feita nessa biblioteca é iniciá-la
+pygame.mixer.music.load('stars.mp3') #é recomendado manter o nome do arquivo de música bem simples e com letras minúsculas
+pygame.mixer.music.play()
+pygame.event.wait() #espera a música terminar para ele encerrar o programa
+#caso não funcionar é pq há alguma incompabilidade com o sistema. Neste caso, faça somente com o 'mixer' conforme abaixo.
+
+from pygame import mixer
+
+mixer.init()
+mixer.music.load('stars.mp3')
+mixer.music.play()
+input("Agora você escuta?")
+'''
