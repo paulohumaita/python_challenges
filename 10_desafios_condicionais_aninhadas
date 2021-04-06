@@ -1,0 +1,197 @@
+#link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=j9bYDjaAYzw
+
+#CONDIÇÕES ANINHADAS
+'''
+#DESAFIO 036
+#escreva um programa para aprovar o empréstimo bancário para a compra de uma casa.
+#o programa vai perguntar o valor da casa, o salário do comprador e em quantos anos ele vai pagar
+#calcule o valor da prestação mensal, sabendo que ela não pode exceder 30% do salário ou então o empréstimo será negado
+
+casa = float(input("Olá! Qual é o valor da casa que gostaria de comprar? R$"))
+salario = float(input("Qual é o seu salário mensal? R$"))
+anos = int(input("E em quantos anos gostaria de pagar o empréstimo? "))
+
+prestacao = casa / (anos * 12)
+limite = salario * 0.3
+
+print("Para uma casa no valor de R${:.2f}, a parcela mensal fica em R${:.2f} em {} vezes.".format(casa, prestacao, (anos*12)))
+
+if prestacao <= limite:
+    print("Empresário APROVADO!")
+else:
+    print("Empréstimo REPROVADO! A prestação mensal de R${:.2f} excede o teto de 30% do seu salário mensal de R${:.2f}.".format(prestacao, salario))
+
+#DESAFIO 037
+#escreva um programa que leia um número inteiro qualquer e peça para o usuário escolher qual
+#será a base de conversão: 1 para binário, 2 para octal ou 3 para hexadecimal
+
+n = int(input("Escolha um número inteiro: "))
+
+#print(''Escolha uma das bases para conversão:
+[ 1 ] converter para BINÁRIO
+[ 2 ] converter para OCTAL
+#[ 3 ] converter para HEXADECIMAL'')
+converter = int(input("Sua opção de conversor: "))
+
+if converter == 1:
+    print("O número {} convertido para BINÁRIO é {}.".format(n, bin(n)[2:])) #para Python o '0b' indica um número binário, '0o' indica octal e '0x' para hexadecimal. Por isso estamos fazendo um slicing dos dois primeiros dígitos.
+elif converter == 2:
+    print("O número {} convertido para OCTAL é {}.".format(n, oct(n)))
+elif converter == 3:
+    print("O número {} convertido para HEXADECIONAL é {}.".format(n, hex(n)))
+else:
+    print("Volte e escolha uma das opções possíveis!")
+
+#DESAFIO 038
+#escreva um programa que leia dois números inteiros e compare-os
+#mostrando na tela uma mensagem: o primeiro número é maior, o segundo número é maior, não existe valor maior, os dois são iguais
+
+n1 = int(input("Digite o primeiro número: "))
+n2 = int(input("Digite o segundo número: "))
+
+if n1 > n2:
+    print("O primeiro número {} é maior que o segundo número {}.".format(n1, n2))
+elif n2 > n1:
+    print("O segundo número {} é maior que o primeiro número {}.".format(n2, n1))
+else:
+    print("Não existe valor maior, os dois números são iguais.")
+
+#DESAFIO 039
+#fraça um programa que leia o ano de nascimento deu um jovem e informe, de acordo com sua idade:
+#se ele ainda vai se alistar ao serviço militar, se é a hora de se alistar ou se já passou do tempo do alistamento
+#programa deve mostrar o tempo que falta ou que passou do prazo
+
+from datetime import date
+
+nasc = int(input("Olá jovem! Que ano você nasceu? "))
+idade = date.today().year - nasc
+limite = 18
+
+print("Quem nasceu em {}, tem {} anos em {}.".format(nasc, idade, date.today().year))
+
+if idade == limite:
+    print("Esta é a hora para você se alistar ao serviço militar. Faça isso imediatamente!")
+elif idade > limite:
+    print("Passou do tempo para você se alistar ao serviço militar em {} ano(s).".format(idade - limite))
+else:
+    print("Daqui a {} ano(s), você precisa se alistar ao serviço militar.".format(limite - idade))
+
+#DESAFIO 040
+#crie um programa que leia duas notas de um aluno e calcule a média, mostrando uma mensagem no final
+#com a média atingida e se foi reprovado (até 5), se ficou de recuperação (entre 5 e 6.9) ou aprovado (7 ou superior)
+
+nota1 = float(input("Qual foi a primeira nota do aluno: "))
+nota2 = float(input("Qual foi a segunda nota do aluno: "))
+
+media = (nota1 + nota2) / 2
+
+print("A média do aluno foi de {:.1f}.".format(media))
+
+if media < 5:
+    print("REPROVADO! Não desista, tente novamente!")
+elif media >= 7:
+    print("APROVADO! Parabéns e até a próxima!")
+else:
+    print("RECUPERAÇÃO! Ainda há esperança para você. Estude mais!")
+
+#DESAFIO 041
+#a Confederação de Natação precisa de um programa que leia o ano de nascimento de um atleta
+#e mostre sua categoria, de acordo com a idade:
+#mirim (até 9 anos), infantil (até 14 anos), junior (até 19 anos), sênior (até 25 anos), master (acima de 25 anos)
+
+from datetime import date
+nasc = int(input("Digite seu ano de nascimento: "))
+
+idade = date.today().year - nasc
+
+print("Com essa idade de {} anos, a categoria é:".format(idade))
+if idade <= 9:
+    print("Mirim")
+elif idade <= 14:
+    print("Infantil")
+elif idade <= 19:
+    print("Junior")
+elif idade <= 25:
+    print("Sênior")
+elif idade > 25:
+    print("Master")
+
+#DESAFIO 042
+#refaça o DESAFIO 035 dos triângulos, acrescentando o recurso de mostrar que tipo de triângulo
+#será formado: equililátero (todos os lados iguais), isósceles (dois lados iguais) ou escaleno (todos os lados diferentes)
+
+r1 = float(input("Qual o comprimento da primeira reta? "))
+r2 = float(input("Qual o comprimento da segunda reta? "))
+r3 = float(input("Qual o comprimento da terceira reta? "))
+
+if r1 < (r2 + r3) and r2 < (r1 + r3) and r3 < (r1 + r2):
+    print("Com essas retas você pode formar um triângulo ", end = '') #esse end = '' é porque quero juntar o print posterior à este aqui.
+    if r1 == r2 == r3:
+        print("equilátero.")
+    elif r1 != r2 != r3 != r1:
+        print("escaleno.")
+    else:
+        print("isósceles.")
+else:
+    print("Infelizmente não vai rolar você formar um triângulo com essas retas.")
+
+#DESAFIO 043
+#desenvolva uma lógica que leia o peso e altura de uma pessoa, calcule seu IMC e mostre o
+#status, de acordo com a tabela: abaixo do peso (abaixo de 18.5), peso ideal (entre 18.25 e 25),
+#sobrepeso (25 até 30), obesidade (30 até 40), obesidade mórbida (acima de 40)
+
+alt = float(input("Digite a altura: (m) "))
+peso = float(input("Digite o peso: (Kg) "))
+
+IMC = peso / (alt ** 2) #operação ao quadrado é com **
+
+print("Com altura de {:.2f} e o peso em {:.1f}, seu IMC é {:.1f} com status '".format(alt, peso, IMC), end = '')
+
+if IMC < 18.5:
+    print("abaixo do peso ideal'. Coma mais e melhor!")
+elif IMC >= 40:
+    print("obesidade mórbida'. Mude seu estilo de vida urgentemente!")
+elif 30 <= IMC < 40:
+    print("obesidade'. Melhore seus hábitos e pratique atividade física!")
+elif 25 <= IMC < 30:
+    print("sobrepeso'. Está quase lá, falta pouco para entrar no ideal.")
+else:
+    print("peso ideal'. PARABÉNS, continue assim.")
+
+#DESAFIO 044
+#elabore um programa que calcule o valor a ser pago por um produto, considerando o seu
+#preço normal e condição de pagamento:
+#à vista dinheiro ou cheque: 10% de desconto
+#à vista no cartão: 5% de desconto
+#em até 2x no cartão: preço normal
+#3x ou mais no cartão: 20% de juros
+
+print("{:=^40}".format(" LOJINHA DO HUMAITÁ ")) #o ^ é usado para centralizar o texto no meio de 40 espaços nesse caso
+
+preco = float(input("Qual o valor das compras? R$"))
+
+print(''' \n FORMAS DE PAGAMENTO:
+ [ 1 ] à vista no dinheiro ou cheque
+ [ 2 ] à vista no cartão
+ [ 3 ] em até 2x no cartão
+ [ 4 ] 3x ou mais vezes no cartão''')
+
+pgto = int(input("Qual a forma de pagamento desejada? "))
+
+if pgto == 1:
+    total = preco * 0.9
+    print("Sua compra de R${:.2f} vai custar R${:.2f}, com o desconto de 10%.".format(preco, total))
+elif pgto == 2:
+    total = preco * 0.95
+    print("Sua compra de R${:.2f} vai custar R${:.2f}, com o desconto de 5%.".format(preco, total))
+elif pgto == 3:
+    print("Sua compra é de R${:.2f}, sem desconto ou juros.".format(preco))
+elif pgto == 4:
+    total = preco * 1.2
+    parcelas = int(input("Qual o número de parcelas? "))
+    print("Sua compra de R${:.2f} vai custar R${:.2f}, com juros, sendo paga em {} parcelas.".format(preco, total, parcelas))
+else:
+    print("Forma de pagamento inválida. Tente novamente!")
+
+#DESAFIO 045
+#feito em projeto diferente aqui no PyCharm
