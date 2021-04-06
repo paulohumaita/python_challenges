@@ -1,0 +1,172 @@
+##link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=1OFp_-R2B2A
+
+#INTERROMPENDO REPETIÇÕES WHILE
+'''
+#DESAFIO 066
+#crie um programa que leia vários números inteiros pelo teclado. O programa só vai parar quando o usuário digitar
+#o valor 999, que é a condição de parada. No final, mostre quantos números foram digitados e qual foi a soma
+#entre eles (desconsiderando o flag).
+
+cont = soma = 0
+
+while True:
+    n = int(input("Digite um valor (999 para parar): "))
+    if n == 999:
+        break
+    soma += n
+    cont += 1
+print(f"A soma dos {cont} valores é de {soma}.")
+
+#DESAFIO 067
+#faça um programa que mostre a tabuada de vários números, um de cada vez, para cada valor digitado pelo usuário. O
+#programa será interrompido quando o número solicitado for negativo.
+
+n=1
+while True:
+    print("-" * 50)
+    num = int(input("Você quer ver a tabuada de qual valor? "))
+    print("-" * 50)
+    if num < 0:
+        break
+    for c in range(1, 11):
+        print('{} x {:2} = {}'.format(num, c, (num * c)))
+print("Este programa tabuada não aceita números negativos e, portanto, foi encerrado. Volte sempre!")
+
+#DESAFIO068
+#faça um programa que jogue par ou ímpar com o computador. O jogo só será interrompido quanto o jogador PERDER,
+#mostrando o total de vitórias consecutivas que ele conquistou no final do jogo.
+
+from random import choice
+from time import sleep
+
+print("=-"*15)
+print("VAMOS JOGAR PAR OU ÍMPAR")
+print("=-"*15)
+
+numeros = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+c = 0
+
+while True:
+    My_number = int(input("Escolha um número: "))
+    PC_number = choice(numeros)
+    soma = My_number + PC_number
+    My_bet = ' '
+    while My_bet not in "PI":
+        My_bet = str(input("Par ou ímpar [P/I]? ")).strip().upper()[0]
+    print("você está jogando contra o robozinho...")
+    sleep(2)
+    print("-"*60)
+    print(f"Ser humano jogou {My_number} e o robô jogou {PC_number}, total de {soma}. ", end='')
+    print("DEU PAR!" if soma % 2 == 0 else "DEU ÍMPAR!")
+    if My_bet == "P":
+        if soma % 2 == 0:
+            print("O ser humano VENCEU!")
+            c += 1
+        else:
+            print("O robô VENCEU!")
+            break
+    elif My_bet == "I":
+        if soma % 2 == 1:
+            print("O ser humano VENCEU!")
+            c += 1
+        else:
+            print("O robô VENCEU!")
+            break
+    print("Bora Jogar novamente!!!")
+    print("-"*60)
+print(f"GAME OVER! O ser humano conseguiu vencer o robô por {c} vez(es).")
+
+#DESAFIO069
+#crie um programa que leia a idade e o sexo de várias pessoas. A cada pessoa cadastrada, o programa deverá perguntar
+#se o usuário quer ou não continuar. No final deve mostrar: A) quantas pessoas tem mais de 18 anos, B) quantos homens
+#foram cadastrados, C) quantoas mulheres tem menos de 20 anos
+
+print("-"*20)
+print("CADASTRE UMA PESSOA")
+print("-"*20)
+
+M = F = maior_18 = F_menos_20 = 0
+
+while True:
+    idade = int(input("Idade: "))
+    sexo = " "
+    while sexo not in "MF":
+        sexo = str(input("Sexo [M/F]: ")).strip().upper()[0]
+
+    if idade > 18:
+        maior_18 += 1
+    if sexo == "M":
+        M += 1
+    if sexo == "F" and idade < 20:
+        F_menos_20 += 1
+
+    pergunta = " "
+    while pergunta not in "SN":
+        pergunta = str(input("Quer continuar cadastrando [S/N]? ")).strip().upper()[0]
+    if pergunta == "N":
+        break
+print("=" * 10, "FIM DO PROGRAMA", "=" * 10)
+print(f"A) Total de pessoas maiores de 18 anos = {maior_18}.")
+print(f"B) Total de homens cadastrados = {M}.")
+print(f"C) Total de mulheres com menos de 20 anos = {F_menos_20}.")
+
+#DESAFIO 070
+#crie um programa que leia o nome e o preço de vários produtos. O programa deverá perguntar se o usuário vai
+#continuar. No final, mostre: A) qual é o total gasto na compra, B) quantos produtos custam mais de R$ 1.000,
+#e C) qual o nome do produto mais barato.
+
+print('{:-^40}'.format("LOJINHA DO FERINHA"))
+
+carrinho = mais_1000 = 0
+
+while True:
+    produto = str(input("Nome do produto: "))
+    preco = float(input("Preço: R$ "))
+    carrinho += preco
+    if preco > 1000:
+        mais_1000 += 1
+    while preco < preco:
+        preco_menor = preco
+        mais_barato = produto
+    comando = " "
+    while comando not in "SN":
+        comando = str(input("Quer continuar [S/N]? ")).strip().upper()[0]
+    if comando == "N":
+        break
+
+print('{:-^40}'.format("SUA COMPRA FOI FINALIZADA"))
+print(f"O total da compra foi de R$ {carrinho:.2f}.")
+print(f"No seu carrinho existe(m) {mais_1000} produto(s) com preço maior do que R$ 1.000.")
+print(f"O produto mais barato foi {produto} que custou R$ {preco}.")
+'''
+#DESAFIO 071
+#crie um programa que simule o funcionamento de um caixa eletrônico. No início, pergunta ao usuário qual será o
+#valor sacaso (número inteiro) e o programa vai informar quantas células de cada valor serão entregues.
+#OBS: considere que o caixa possui cédulas de R$50, R$20, R$10 e R$1.
+
+print('{:=^50}'.format(" BANCO DO FERINHA "))
+valor = int(input("Quanto você quer sacar? R$ "))
+
+total = valor
+cédula = 50
+total_cédulas = 0
+
+print("=" * 50)
+while True:
+    if total >= cédula:
+        total -= cédula
+        total_cédulas += 1
+    else:
+        if total_cédulas > 0:
+            print(f"Total de {total_cédulas} cédulas de R$ {cédula}")
+        if cédula == 50:
+            cédula = 20
+        elif cédula == 20:
+            cédula = 10
+        elif cédula == 10:
+            cédula = 1
+        total_cédulas = 0
+        if total == 0:
+            break
+print("="*50)
+print("Feríssimo, volte sempre ao Banco do Ferinha!")
