@@ -1,0 +1,294 @@
+#link da aula gratuita no YouTube -> 
+#parte 1 - https://www.youtube.com/watch?v=N1hTsbW50eM
+#parte 2 - https://www.youtube.com/watch?v=YV_JQmZNFsk
+
+'''
+#DESAFIO 078
+#faça um programa que leia 5 valores números e guarde-os em uma lista. No final, mostre qual foi o maior e o menor
+#valor digitado e as suas respectivas posições na lista.
+
+lista = []
+maior = 0
+menor = 0
+
+for c in range(0,5):
+    lista.append(int(input(f"Digite um valor para a posição {c}: ")))
+    if c == 0:
+        maior = menor = lista[c]
+    else:
+        if lista[c] > maior:
+            maior = lista[c]
+        if lista[c] < menor:
+            menor = lista[c]
+
+print('='*20)
+print(f"Você digitou os valores {lista}.")
+print(f"O maior valor foi {maior} na(s) posição(ões) ", end='')
+for i, v in enumerate(lista):
+    if v == maior:
+        print(f"{i}... ", end='')
+print()
+print(f"O menor valor foi {menor} na(s) posição(ões) ", end='')
+for i, v in enumerate(lista):
+    if v == menor:
+        print(f"{i}... ", end='')
+print()
+
+#DESAFIO 079
+#crie um programa onde o usuário possa digitar vários valores numéricos e cadastre-os em uma lista. Caso o número já
+#exista lá dentro, ele não será adicionado. No final, serão exibidos todos os valores únicos digitados, em ordem crescente.
+
+lista = []
+
+while True:
+    n = (int(input("Digite um valor: ")))
+    if n in lista:
+        print("Valor duplicado! Não vou adicionar...")
+    else:
+        lista.append(n)
+        print("Valor adicionado com sucesso!")
+    pergunta = " "
+    while pergunta not in "SN":
+        pergunta = str(input("Quer continuar cadastrando [S/N]? ")).strip().upper()[0]
+    if pergunta == "N":
+        break
+lista.sort()
+print(f"Você digitou os valores {lista}.")
+
+#DESAFIO 080
+#crie um programa onde o usuário possa digitar cinco valores numéricos e cadastre-os em uma lista,
+#já na posição correta de inserção e sem usar o sort(). No final, mostre a lista ordenada na tela.
+
+lista = []
+
+for c in range(0,5):
+    n = int(input("Digite um número: "))
+    if c == 0 or n > lista[-1]:
+        lista.append(n)
+        print("Valor adicionado ao final da lista.")
+    else:
+        posicao = 0
+        while posicao < len(lista):
+            if n <= lista[posicao]:
+                lista.insert(posicao, n)
+                print(f"Valor adicionado na posição {posicao} da lista.")
+                break
+            posicao += 1
+print(f"Os valores digitados em ordem crescente foram {lista}.")
+
+#DESAFIO 081
+#crie um programa que vai ler vários números e colocar em uma lista. Depois disso, mostre: a) quantos números
+#foram digitados, b) a lista de valores, ordenada de forma descrescente, c) se valor 5 foi digitado e está ou não na lista.
+
+lista = []
+
+while True:
+    lista.append(int(input("Digite um valor: ")))
+    pergunta = ' '
+    while pergunta not in "SN":
+        pergunta = str(input("Quer digitar mais um número [S/N]? ")).strip().upper()[0]
+    if pergunta == 'N':
+        break
+
+print('-='*40)
+
+print(f"Foram digitados {len(lista)} valores.")
+
+lista.sort(reverse=True)
+print(f"Os valores digitados em ordem decrescente são: {lista}")
+
+if 5 not in lista:
+    print("O valor 5 não faz parte da lista.")
+else:
+    print(f"O valor 5 faz parte da lista.")
+
+#DESAFIO 082
+#crie um programa que vai ler vários números e colocar em uma lista. Depois disso, crie duas listas extras que vão
+#conter apenas os valores pares e os valores ímpares digitados, respectivamente. Ao final, mostre o conteúdo
+#das três listas geradas.
+
+lista_toda = []
+lista_pares = []
+lista_impares = []
+
+while True:
+    lista_toda.append(int(input("Digite um valor: ")))
+    if lista_toda[-1] % 2 == 0:
+        lista_pares.append(lista_toda[-1])
+    else:
+        lista_impares.append(lista_toda[-1])
+    pergunta = ' '
+    while pergunta not in 'SN':
+        pergunta = str(input("Deseja continuar [S/N]? ")).strip().upper()[0]
+    if pergunta == "N":
+        break
+print(f"Os números pares digitados foram: {lista_pares}")
+print(f"Os números ímpares digitados foram: {lista_impares}")
+print(f"A lista com todos números digiados é a seguinte: {lista_toda}")
+
+#DESAFIO 083
+#crie um programa onde o usuário digite uma expressão qualquer que use parênteses. Seu aplicativo deverá analisar
+#se a expressão passada está com os parênteses abertos ou fechados na ordem correta.
+
+expressao = str(input("Digite uma expressão: "))
+print(f"Analisando a expressão: {expressao} ...")
+
+pilha = []
+
+for parenteses in expressao:
+    if parenteses == '(':
+        pilha.append('(')
+    elif parenteses == ')':
+        pilha.pop()
+
+if len(pilha) == 0:
+    print("Sua expressão está correta.")
+else:
+    print("Sua expressão está inválida.")
+
+#DESAFIO 084
+#faça um programa que leia nome e peso de várias pessoas, guardando tudo em uma lista. No final, mostre: a) quantas
+#pessoas foram cadastradas, b) uma listagem com as pessoas mais pesadas, c) uma listagem com as pessoas mais leves.
+
+temp = []
+main = []
+
+while True:
+    temp.append(str(input('Nome: ')))
+    temp.append(float(input('Peso: '))
+    main.append(temp[:])
+    resp = str(input('Quer continuar [S/N]? '))
+    if resp in 'Nn':
+        break
+
+print(f"Os dados foram {main}")
+
+
+#DESAFIO 85
+#crie um programa onde o usuário possa digitar sete valores numérios e cadastre-os em uma única lista
+#que mantenha separados os valores pares e ímpares. No final, mostre os valores pares e ímpares em ordem crescente.
+
+lista = []
+c = 0
+
+for n in range(1, 8):
+    valor = int(input(f"Digite o {n}o. número: "))
+    if valor % 2 == 0:
+        lista.append(valor)
+    else:
+        lista.insert(0, valor)
+        c += 1
+
+print(f"Os valores digitados foram: {lista}")
+print(f"Os valores ímpares em ordem crescente foram: {sorted(lista[0:c])}")
+print(f"Os valores pares em ordem crescente foram: {sorted(lista[c:])}")
+
+#DESAFIO 086
+#crie um programa que cria uma matriz de dimensão 3x3 e preencha com valores lidos pelo teclado.
+
+matriz = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+
+for linha in range(0,3):
+    for coluna in range(0,3):
+        matriz[linha][coluna] = int(input(f"Digite um valor para [{linha}, {coluna}]: "))
+print("-=" * 30)
+for linha in range(0,3):
+    for coluna in range(0,3):
+        print(f"[{matriz[linha][coluna]:^5}]", end='')
+    print() #toda vez que ele terminar uma coluna, ele quebra na outra linha
+
+#DESAFIO 087
+#aprimore o desafio anterior, mostrando no final: a) a soma de todos os valores pares digitados. b) a soma dos valores da terceira coluna,
+#c) o maior valor da segunda linha.
+
+matriz = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+spar = mai = scol = 0
+
+for linha in range(0,3):
+    for coluna in range(0,3):
+        matriz[linha][coluna] = int(input(f"Digite um valor para [{linha}, {coluna}]: "))
+print("-=" * 30)
+for linha in range(0,3):
+    for coluna in range(0,3):
+        print(f"[{matriz[linha][coluna]:^5}]", end='')
+        if matriz[linha][coluna] % 2 == 0:
+            spar += matriz[linha][coluna]
+    print() #toda vez que ele terminar uma coluna, ele quebra na outra linha
+print('-='*30)
+print(f'A soma dos valores pares é {spar}.')
+for linha in range(0,3):
+    scol += matriz[linha][2]
+print(f'A soma dos valores da terceira coluna é {scol}.')
+for coluna in range(0,3):
+    if coluna == 0:
+        mai = matriz[1][coluna]
+    elif matriz[1][coluna] > mai:
+        mai = matriz[1][coluna]
+print(f'O maior valor da segunda linha é {mai}.')
+
+#DESAFIO 088
+#faça um programa que ajude um jogador da MEGA SENA a criar palpites. O programa vai perguntar quantos jogos serão
+#gerados e vai sortear 6 números entre 1 e 60 para cada jogo, cadastrando tudo em uma lista composta.
+
+from random import randint
+from time import sleep
+
+print('-'*30)
+print('     GANHE NA MEGA SENA     ')
+print('-'*30)
+lista = list()
+jogos = list()
+total_jogos = 1
+quantidade_jogos = int(input('Quantos jogos você quer que eu sorteie? '))
+while total_jogos <= quantidade_jogos:
+    cont = 0
+    while True:
+        num = randint(0,60)
+        if num not in lista:
+            lista.append(num)
+            cont +=1
+        if cont >= 6:
+            break
+    lista.sort()
+    jogos.append(lista[:])
+    lista.clear()
+    total_jogos += 1
+
+print('-='*3, f' SORTEANDO {quantidade_jogos} JOGOS ', '-='*3)
+for i, l in enumerate(jogos):
+    print(f'Jogo {i+1}: {l}')
+    sleep(1)
+print('-='*5, '< BOA SORTE! >', '-='*5)
+'''
+#DESAFIO 089
+#crie um programa que leia nome e duas notas de vários alunos e guarde tudo de uma lista composta. No final, mostre um
+#boletim contendo a média de cada um e permita que o usuário possa mostrar as notas de cada aluno individualmente.
+
+lista = list()
+notas = list()
+
+while True:
+    aluno = str(input("Nome do aluno: "))
+    n1 = float(input("Nota 1: "))
+    n2 = float(input("Nota 2: "))
+    media = (n1 + n2) / 2
+    lista.append([aluno, [n1, n2], media])
+    parar = str(input("Quer continuar [S/N]? "))
+    if parar in "Nn":
+        break
+
+print('='*30)
+print(f'{"ID":<4}{"ALUNO":10}{"MÉDIA":>8}')
+print('-'*30)
+for i, a in enumerate(lista):
+    print(f'{i:<4}{a[0]:<10}{a[2]:>8.1f}')
+
+while True:
+    print('-'*60)
+    opc = int(input('Mostrar notas de qual aluno? (Digite 999 para interromper) '))
+    if opc == 999:
+        print('FINALIZANDO...')
+        break
+    if opc <= len(lista) - 1:
+        print(f'As notas de {lista[opc][0]} são {lista[opc][1]}')
+print('<<< VOLTE SEMPRE >>>')
