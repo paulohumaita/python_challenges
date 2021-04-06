@@ -1,0 +1,196 @@
+#link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=ZWj8o692qGY
+
+'''
+#DICIONÁRIOS
+
+#DESAFIO 090
+#faça um programa que leia nome e média de um aluno, guardando também a situação em um dicionário. No final, mostre
+#o conteúdo da estrutura na tela.
+
+dict = {}
+
+dict['nome'] = str(input("Nome: "))
+dict['média'] = float(input(f'Média de {dict["nome"]}: '))
+if dict['média'] >= 6:
+    dict['situação'] = "aprovado(a)"
+elif 5 <= dict['média'] < 6:
+    dict['situação'] = "em recuperação"
+else:
+    dict['situação'] = "reprovado(a)"
+
+print('-='*30)
+for k, v in dict.items(): #isso aqui é tipo um enumerate para dicionários, onde k é key e v é values
+    print(f' * {k} é igual a {v}')
+
+#DESAFIO 091
+#faça um programa onde 4 jogadores joguem um dado e tenham resultados aleatórios. Guarde esses resultados em
+#um dicionário. No final, coloque esse dicionário em ordem, sabendo que o vencedor tirou o maior número no dado.
+
+from random import randint
+from time import sleep
+from operator import itemgetter
+
+jogo = {}
+ranking = {}
+print('-='*30)
+print("Valores sorteados:")
+for n in range(1,5):
+    sleep(1)
+    jogo[n] = randint(1,6)
+    print(f'O jogador {n} tirou {jogo[n]}.')
+sleep(1)
+print('-='*30)
+print("Ranking dos jogadores:")
+sleep(1)
+ranking = sorted(jogo.items(), key=itemgetter(1), reverse=True) #o parâmetro reverse é necessário por ele organiza do menor para o maior, mas neste caso queremos do maior para o menor
+for i, v in enumerate(ranking):
+    print(f'{i+1}º lugar: jogador {v[0]} com {v[1]}.')
+    sleep(1)
+
+#DESAFIO 092
+#crie um programa que leia nome, ano de nascimento e carteira de trabalho e cadastre-os (com idade) em um dicionário
+#se por acaso a CTPS for diferente de zero, o dicionário receberá também o ano de contratação e o salário. Calcule
+#e acrescente, além da idade, com quantos anos a pessoa vai se aposentar (35 anos de contribuição).
+
+from datetime import datetime
+
+dict = {} #poderia criar também fazendo>>> dados = dict()
+dict['nome'] = str(input("Nome: "))
+dict['idade'] = datetime.now().year - int(input("Ano de nascimento: "))
+dict['ctps'] = int(input("Número da CTPS (0 se não tem): "))
+if dict['ctps'] != 0:
+    dict['ano_contr'] = int(input("Qual foi o ano da primeira contratação? "))
+    dict['salario'] = float(input("E qual foi o primeiro salário? R$ "))
+    dict['aposentadoria'] = 35 - (datetime.now().year - dict['ano_contr'])
+print('=-'*30)
+print(dict)
+for k, v in dict.items():
+    print(f' * {k} tem o valor {v}')
+
+#DESAFIO 93
+#crie um programa que gerencie o aproveitamento de um jogador de futebol. O programa vai ler o nome do jogador e
+#quantas partidas ele jogou. Depois vai ler a quantidade de gols feitos em cada partida. No final, tudo isso será
+#guardado em um dicionário, incluindo o total de gols feitos durante o campeonato.
+
+dict = {}
+dict['nome'] = str(input("Nome do jogador: "))
+partidas = int(input(f"Quantas partidas o {dict['nome']} jogou? "))
+n = 1
+gols = []
+while n != (partidas+1):
+    gol = int(input(f"    Quantos gols {dict['nome']} fez na partida {n}? "))
+    gols.append(gol)
+    n += 1
+dict['gols'] = gols
+dict['total_gols'] = sum(gols)
+
+print('=-'*30)
+print(dict)
+print('=-'*30)
+for k, v in dict.items():
+    print(f"O campo {k} tem valor {v}")
+print('=-' * 30)
+print(f"O jogador {dict['nome']} jogou {partidas} partidas.")
+for i, v in enumerate(gols):
+    print(f"   => Na partida {i+1}, fez {v} gol(s).")
+print(f"Foi um total de {dict['total_gols']} gols.")
+
+#DESAFIO 094
+#crie um programa que leia nome, sexo e idade de várias pessoas, guardando os dados de cada pessoa em um dicionário e
+#todos os dicionários em uma lista. No final, mostre: a) quantas pessoas foram cadastrados, b) a média de idade do
+#grupo, c) uma lista com todas as mulheres, d) uma lista com todas as pessoas com idade acima da média.
+
+galera = list()
+pessoa = dict()
+soma = média = 0
+
+while True:
+   pessoa.clear()  # esvaziando aqui porque vai vir uma pessoa nova se continuar o cadastro
+   pessoa['nome'] = str(input('Nome: '))
+   while True: #loop para garantir que a resposta será sempre M ou F para o gênero da pessoa
+      pessoa['sexo'] = str(input('Sexo [M/F]: ')).upper()[0]
+      if pessoa['sexo'] in 'MF':
+         break
+      print("ERRO! Por favor digite apenas M ou F.")
+
+   pessoa['idade'] = int(input("Idade: "))
+   soma += pessoa['idade']
+
+   galera.append(pessoa.copy())
+
+   while True:
+      continuar = str(input("Quer continuar? [S/N] ")).upper()[0]
+      if continuar in "SN":
+         break
+      print("ERRO! Por favor digite apenas S ou N.")
+   if continuar == 'N':
+      break
+
+print('-='*30)
+print(f'a) Ao todo temos {len(galera)} pessoas cadastradas.')
+média = soma / len(galera)
+print(f'b) A média de idade é de {média:5.2f} anos.')
+print(f'c) As mulheres cadastradas foram ', end='')
+for p in galera:
+   if p['sexo'] in 'Ff':
+      print(f'{p["nome"]} ', end='')
+print()
+print('d) Lista das pessoas com idade acima da média: ')
+for p in galera:
+   if p['idade'] >= média:
+      print('   ', end='')
+      for k, v in p.items():
+         print(f'{k} = {v}; ', end='')
+      print()
+print("<<< programa encerrado >>>")
+'''
+# DESAFIO 095
+# aprimore o DESAFIO 093 para que ele funcione com vários jogadores, incluindo um sistema de visualização de detalhes
+# do aproveitamento de cada jogador.
+
+time = list()
+jogador = dict()
+partidas = list()
+
+while True:
+    jogador.clear()
+    jogador['nome'] = str(input("Nome do jogador: "))
+    tot = int(input(f"Quantas partidas {jogador['nome']} jogou? "))
+    partidas.clear()
+    for c in range(1, tot+1):
+        partidas.append(int(input(f'   Quantos gols na partida {c}? ')))
+    jogador['gols'] = partidas[:]
+    jogador['total'] = sum(partidas)
+    time.append(jogador.copy())
+    while True:
+        continuar = str(input('Quer continuar? [S/N] ')).upper()[0]
+        if continuar in 'SN':
+            break
+        print("ERRO! Por favor responda apenas S ou N.")
+    if continuar == 'N':
+        break
+print('-='*30) #aqui começa a leitura e análise dos dados
+print('cod ', end='')
+for i in jogador.keys():
+   print(f'{i:<15}', end='')
+print()
+
+print('-' * 40)
+for k, v in enumerate(time):
+    print(f'{k:>4} ', end='')
+    for d in v.values():
+        print(f'{str(d):<15}', end='')
+    print()
+print('-' * 40)
+while True:
+   busca = int(input("Mostrar dados de qual jogador? (999 para parar) "))
+   if busca == 999:
+      break
+   if busca >= len(time):
+      print(f"ERRO! Não existe jogador com código {busca}.")
+   else:
+      print(f'  -- LEVANTAMENTO DO JOGADOR {time[busca]["nome"]}: ')
+      for i, g in enumerate(time[busca]['gols']):
+         print(f'   No jogo {i} fez {g} gols.')
+   print('-'*40)
+print('<<<VOLTE SEMPRE!>>> #vaicorinthians')
