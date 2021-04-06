@@ -1,0 +1,317 @@
+#link da aula gratuita no YouTube -> 
+# parte 1 - https://www.youtube.com/watch?v=ezfr9d7wd_k
+# parte 2 - https://www.youtube.com/watch?v=etjJ_4Eqrk8
+
+'''
+#DEF FUNÇÕES
+
+#DESAFIO 096
+#faça um programa que tenha uma função chamada área(), que receba as dimensões
+#de um terreno retangular (largura e comprimento) e mostre a área do terreno.
+
+def área(l, c):
+    a = l * c
+    print(f'A área de um terreno {l}m x {c}m é de {a}m².') #atalho do teclado para 2 ao quadrado = segurar alt Gr + 2
+
+
+#Programa Principal
+print('Controle de Terrenos')
+print('-'*20)
+l = float(input("LARGURA (m): "))
+c = float(input("COMPRIMENTO (m): "))
+área(l, c)
+
+#DESAFIO 097
+#faça um programa que tenha uma função escreva(), que receba um texto qualquer
+#como parâmetro e mostre uma mensagem com tamanho adaptável.
+
+def escreva(texto):
+    tam = len(texto) + 4
+    print('-'*tam)
+    print(f'  {texto} ')
+    print('-'*tam)
+
+
+#Programa Principal
+escreva("Corinthians")
+escreva("hello")
+escreva("oi")
+
+#DESAFIO 098
+#faça um programa que tenha uma função chamada contador(), que receba três parâmetros: início, fim e passo, e que
+#realize a contagem. Seu programa tem que realizar três contagens através da função criada: a) de 1 até 10, de 1 em 1,
+#b) de 10 até 0, de 2 em 2, c) uma contagem personalizada.
+
+from time import sleep
+
+def contador(i, f, p):
+    if p < 0:
+        p *= -1 #fazendo com que mesmo se o user indicar número positivo, o programa converte automaticamente para positivo
+    if p == 0:
+        p = 1 #fazendo com que caso o user indique passo 0, o programa automaticamente converte para 1
+    print("=*" * 30)
+    print(f"Iniciando contagem de {i} até {f} de {p} em {p} ...")
+    sleep(1.5)
+    if i < f:
+        cont = i
+        while cont <= f:
+            print(f'{cont}', end=' ') #dependendo da versão do PyCharm é necessário adicionar o parâmetro FLUSH ficando assim...end=' ', flush=True)
+            sleep(0.5)
+            cont += p
+        print("FIM!")
+    else:
+        cont = i
+        while cont >= f:
+            print(f'{cont}', end=' ')
+            sleep(0.5)
+            cont -= p
+        print("FIM!")
+
+
+#Programa Principal
+contador(1, 10, 1)
+contador(10, 0, 2)
+print("=*" * 30)
+print("Agora é a sua vez de personalizar a contagem!")
+i = int(input("Início: "))
+f = int(input("Fim:    "))
+p = int(input("Passo:  "))
+contador(i, f, p)
+print("=*" * 30)
+print("VALEU, VOLTE SEMPRE!")
+
+#DESAFIO 099
+#faça um programa que tenha uma função chamada maior(), que receba vários parâmetros com valores inteiros. Seu programa
+#tem que analisar todos os valores e dizer qual deles é o maior.
+
+from time import sleep
+
+def maior(* números):
+    cont = maior = 0
+    print("-="*30)
+    print("Analisando os valores passados...")
+    for número in números:
+        sleep(0.5)
+        print(f'{número} ', end='')
+        if cont == 0:
+            maior = número
+        else:
+            if número > maior:
+                maior = número
+        cont += 1
+    sleep(1)
+    print(f"\nForam informados {cont} valor(es) ao todo...", end='')
+    sleep(1)
+    print(f"e o maior valor é o {maior}.")
+
+
+#Programa Principal
+maior(2, 9, 4, 5, 7, 1)
+maior(4, 7, 0)
+maior(1, 2)
+maior(6)
+maior()
+
+
+#DESAFIO 100
+#faça um programa que tenha uma lista chamada números e duas funções sorteio() e somaPar(). A primeira função vai
+#sortear 5 números e vai colocá-los dentro da lista e a segunda função vai mostrar a soma entre todos os valores
+#pares sorteados pela função anterior. 
+
+from random import choice
+from time import sleep
+
+base = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+números = []
+
+def sorteio():
+    c = 0
+    print("Sorteando 5 valores da lista: ", end='')
+    while True:
+        número_sorteado = choice(base)
+        números.append(número_sorteado)
+        sleep(0.7)
+        print(número_sorteado, end=' ')
+        c += 1
+        if c == 5:
+            sleep(1)
+            print("FIM! ")
+            break
+
+def somaPar():
+    pares = []
+    for n in números:
+        if n % 2 == 0:
+            pares.append(n)
+            soma = 0
+            for n in pares:
+                soma += n
+    print(f'Ao somar somente os valores pares da lista {números}, o resultado é {soma}.')
+
+
+sorteio()
+somaPar()
+
+#DESAFIO 101
+#crie um programa que tenha uma função chamada voto() que vai receber como parâmetro o ano de nascimento de uma pessoa,
+#retornando um valor literal indicando se uma pessoa tem voto NEGADO, OPCIONAL ou OBRIGATÓRIO nas eleições.
+
+def voto(ano):
+    from datetime import date #ESCOPO DE IMPORTAÇÃO: chamando a biblioteca aqui, economiza bastante memória
+    atual = date.today().year
+    idade = atual - ano
+    if idade < 16:
+        return f"Com {idade} anos: NÃO VOTA."
+    elif 16 <= idade < 18 or idade > 65:
+        return f"Com {idade} anos: VOTO OPCIONAL."
+    else:
+        return f"Com {idade} anos: VOTO OBRIGATÓRIO."
+
+#Programa Principal
+nasc = int(input("Em que ano você nasceu? "))
+print(voto(nasc))
+
+#DESAFIO 102
+#crie um programa que tenha uma função fatorial() que receba dois parâmetros: o primeiro que indique o número a calcular
+#e o outro chamado who, que será um valor lógico (opcional) indicando se será mostrado ou não na tela o processo
+#de cálcul do fatorial.
+
+def fatorial(n, show=False):
+    """
+    -> Calcula o fatorial de um número.
+    :param n: o número a ser calculado o fatorial.
+    :param show: (opcional) mostrar o não a conta na tela.
+    :return: o valor fatorial de um número n.
+    """
+    f = 1
+    for c in range(n, 0, -1):
+        if show:
+            print(c, end='')
+            if c > 1:
+                print(' x ', end='')
+            else:
+                print(' = ', end='')
+        f *= c
+    return f
+
+
+#Programa Principal
+help(fatorial)
+print(fatorial(5, show=True))
+
+#DESAFIO 103
+#faça um programa que tenha uma função chamada ficha(), que receba dois parâmetros opcionais: o nome de um jogador e
+#quantos gols ele marcou. O programa deverá ser capaz de mostrar a ficha do jogador, mesmo que algum dado não tenha
+#sido informado corretamente.
+
+def ficha(jog = '<desconhecido>', gol = '0'):
+    print(f'O jogador {jog} fez {gol} gol(s) no campeonato.')
+
+#Programa Principal
+nome_jogador = str(input("Nome do Jogador: "))
+gols_marcados = str(input("Gols marcados: "))
+if gols_marcados.isnumeric(): #ao ler número como strings, consigo através do isnumeric se o input digitado foi ou não um número
+    gols_marcados = int(gols_marcados)
+else: #se não for numérico, evita o erro uma vez que abaixo os gols recebem zero
+    gols_marcados = 0
+if nome_jogador.strip() == '':
+    ficha(gol=0)
+else:
+    ficha(nome_jogador, gols_marcados)
+
+#DESAFIO 104
+#crie um programa que tenha uma função leiaInt(), que vai funcionar de forma semelhante à função input() do Python,
+#só que fazendo a validação para aceitar apenas um valor numérico. Ex: n=leiaInt("Digite um n')
+
+def leiaInt(msg):
+    ok = False
+    valor = 0
+    while True:
+        n = str(input(msg))
+        if n.isnumeric():
+            valor = int(n)
+            ok = True
+        else:
+            print('\033[0;31m ERRO! Digite um número inteiro válido.\033[m')
+        if ok:
+            break
+        return valor
+
+#Programa Principal
+n = leiaInt("Digite um número: ")
+print(f'Você acabou de digitar o número {n}')
+
+#DESAFIO 105
+#faça um programa que tenha uma função notas() que pode receber várias notas de alunos e vai retornar um dicionário
+#com as seguintes informações: - quantidade de notas, - a maior nota, - a menor nota, - a média da turma, - a situação (opcional).
+#Adicione também as docstrings da função.
+
+def notas(*n, sit=False):
+    """
+    -> Função para analisar notas e situações de vários alunos.
+    :param n: uma ou mais notas dos alunos (aceita várias)
+    :param sit: valor opcional, indicando se deve ou não adicionar a situação
+    :return: dicionário com várias informações sobre a situação da turma
+    """
+    r = dict()
+    r['total'] = len(n)
+    r['maior'] = max(n)
+    r['menor'] = min(n)
+    r['média'] = sum(n) / len(n)
+    if sit:
+        if r['média'] >= 7:
+            r['situação'] = 'BOA'
+        elif r['média'] <= 5:
+            r['situação'] = 'RAZOÁVEL'
+        else:
+            r['situação'] = 'RUIM'
+    return r
+
+#Programa Principal
+resp = notas(5.5, 9.5, 0, 6.5, sit=True)
+help(notas)
+print(resp)
+'''
+#DESAFIO 106
+#faça em um mini-sistema que utilize o Interactive Help do Python. O usuário vai digitar o comando e o manual vai
+#aparecer. Quando o usuário digitar a palavra 'FIM', o programa se encerrará. OBS: use cores.
+
+from time import sleep
+
+c = ('\033[m',         # 0 -> sem cores
+     '\033[0;30;41m',  # 1 -> vermelho
+     '\033[0;30;42m',  # 2 -> verde
+     '\033[0;30;43m',  # 3 -> amarelo
+     '\033[0;30;44m',  # 4 -> azul
+     '\033[0;30;45m',  # 5 -> roxo
+     '\033[0;30m'      # 6 -> branco
+    );
+
+def ajuda(com):
+    título(f'Acessando o manual do comando \'{com}\'', 4)
+    print(c[6], end='')
+    help(com)
+    print(c[0], end='')
+    sleep(2)
+
+
+def título(msg, cor=0):
+    tam = len(msg) + 4
+    print(c[cor], end='')
+    print('~' * tam)
+    print(f" {msg} ")
+    print('~' * tam)
+    print(c[0], end='')
+    sleep(1)
+
+
+#Programa Principal
+comando = ''
+while True:
+    título('SISTEMA DE AJUDA PYHELP', 2)
+    comando = str(input("Função ou Biblioteca -> "))
+    if comando.upper() == 'FIM':
+        break
+    else:
+        ajuda(comando)
+título("ATÉ A PRÓXIMA!", 1)
