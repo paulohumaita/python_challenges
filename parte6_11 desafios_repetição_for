@@ -1,0 +1,234 @@
+#link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=cL4YDtFnCt4
+
+#ESTRUTURA DE REPETIÇÃO FOR
+'''
+#DESAFIO 046
+#faça um programa que mostre na tela uma contagem regressiva para estouro de fogos
+#de artifício, indo de 10 até 0, com uma pausa de 1 segundo entre eles.
+
+from time import sleep
+
+for c in range(10, -1, -1):
+    print(c)
+    sleep(1)
+print("BOOOOOM! PEW! PEW! PEW!")
+
+#DESAFIO 047
+#crie um programa que mostre na tela todos os números pares que estão no intervalo entre 1 e 50
+
+for n in range(1, 51): #com essa solução, o computador roda um número de laços maior que o necessário
+    if n % 2 == 0:
+        print(n, end =' ')
+print("FIM")
+
+for n in range(2, 51, 2): #solução otimizada, pois já sei que de 2 em 2 são os números pares e ainda não preciso do IF. Assim ocupa 2x menos espaço no meu processador.
+    print(n, end =' ')
+print("FIM")
+
+#DESAFIO 048
+#faça um programa que calcule a soma entre todos os números ímpares que são múltiplos de três
+#e que se encontram no intervalo de 1 até 500
+
+soma = 0 #este é um acumulador, geralmente conta o que precisamos que conte
+cont = 0 #este é um contador, geralmente conta +1
+
+for n in range(1, 501, 2):
+    if n % 3 == 0:
+        soma += n
+        cont += 1
+print("A soma de {} valores solicitados é {}.".format(cont, soma))
+
+#DESAFIO 049
+#refaça o desafio 009, mostrando a tabuada de um número que o usuário escolher
+#só que agora utilizando um laço FOR
+
+num = int(input('Ferinha, digite um número para calcular a tabuada: '))
+
+for n in range(1, 11):
+    print('{} x {:2} = {}'.format(num, n, (num * n)))
+
+#DESAFIO 050
+#desenvolva um programa que leia seis números inteiros e mostre a soma apenas daqueles que
+#forem pares. Se o valor digitado for ímpar, desconsidere-o
+
+soma = 0
+
+for n in range(1, 7):
+    number = int(input("Digite o {}º número inteiro: ".format(n)))
+    if number % 2 == 0:
+        soma = soma + number
+print("A soma dos números pares digitados é de {}.".format(soma))
+
+#DESAFIO 051
+#desenvolva um programa que leia o primeiro termo e a razão de uma PA. No final, mostre os 10
+#primeiros termos dessa progressão
+
+print("\n", "="*25, "\n", "{:^25}".format("10 TERMOS DE UMA PA"), "\n", "="*25,"")
+
+termo = int(input("Primeiro termo: "))
+razao = int(input("Razão: "))
+decimo = termo + (10 - 1) * razao #enésimo termo de uma PA, segundo a matemática
+
+for n in range(termo, decimo + razao, razao):
+   print("{}".format(n), end=' → ')
+
+print("FIM")
+
+#DESAFIO 052
+#faça um programa que leia um número inteiro e diga se ele é ou não um número primo
+
+num = int(input("Digite um número: "))
+
+soma = 0
+
+for c in range(2, num):
+    if num % c == 0:
+        soma = soma + 1 #se o número não for divisível por nenhum outro até ele mesmo, soma um. Isto é, somente vai se o número não for primo, uma vez que divisível por algum divisor.
+    else:
+        soma = soma
+
+if soma == 0:
+   print("O número {} É um número primo.".format(num))
+else:
+   print("O número {} NÃO É um número primo, pois ele é divisível {} veze(s) além dele mesmo e por 1.".format(num, soma))
+
+#for n in range(1, num + 1):
+ #   A = num % n
+  #  print(A, end=' ')
+
+#  if n % n == 0:
+   #     print(num % n)
+    #else:
+     #   print("O número {} NÃO é um número primo.".format(n))
+
+
+#DESAFIO 053
+#crie um programa que leia uma frase qualquer e diga se ela é um palíndromo,
+#desconsiderando os espaços
+
+frase = str(input("Escreva uma frase: ")).strip().upper() #usei STRIP para eliminar todos espaços antes e depois, usei UPPER para deixar tudo em maiúsculo
+
+palavras = frase.split() #splitei para virar uma lista
+junto = ''.join(palavras) #aqui usei JOIN para juntar tudo numa string só
+
+inverso = '' #também é possível fazer sem essa variável e o FOR abaixo, usando apenas o seguinte: inverso = junto[::-1]
+for letra in range(len(junto) - 1, -1, -1): #comandos para fazer o inverso da frase. Da última letra até a primeira, voltando de letra em letra
+    inverso += junto[letra]
+
+print(" Você digitou a frase: {}. \n Essa frase ao contrário é: {}.".format(junto, inverso))
+
+if inverso == junto:
+    print(" Temos um palíndromo!!!")
+else:
+    print(" Essa frase NÃO é um palíndromo.")
+
+
+
+#DESAFIO 054
+#crie um programa que leia o ano de nascimento de sete pessoas. No final, mostre quantas pessoas
+#ainda não atingiram a maioridade e quantas já são maiores
+
+from datetime import date
+
+soma = 0
+
+for p in range(1, 8):
+    nasc = int(input("Qual a data de nascimento da {}ª pessoa? ".format(p)))
+    idade = date.today().year - nasc
+    if idade >= 18:
+        soma += 1
+print("Do total de 7 pessoas analisadas, {} pessoa(s) ainda não atingiram maioridade e {} já pessoa(s) tem maioridade.".format((7 - soma), soma))
+
+#DESAFIO 055
+#faça um programa que leia o peso de cinco pessoas. No final, mostre qual foi o maior
+#e o menor dos pessoas lidos
+
+weight_list = []
+for person in range(1, 6):
+    weight = float(input("Qual o peso da {}ª pessoa? ".format(person)))
+    weight_list.append(weight)
+print("Dessas {} pessoas, o menor peso é {} e o maior peso é {}.".format(person, min(weight_list), max(weight_list)))
+
+#DESAFIO 056
+#desenvolva um programa que leia nome, idade e sexo de quatro pessoas. No final, o programa
+#deve mostrar a média de idade do grupo, qual o nome do homem mais velho e quantas mulheres
+#tem menos de 20 anos
+
+sum_age = 0
+M_ages = 0
+M_old_name = ""
+F_20 = 0
+
+for person in range(1, 5):
+    print('----- {}ª PESSOA -----'.format(person))
+    name = str(input("Nome: ")).strip()
+    age = int(input("Idade: "))
+    genre = str(input("Gênero [M/F]: ")).strip()
+    sum_age += age
+    if person == 1 and genre in 'Mm': #colocando dessa forma 'Mm' garante que captura tanto M maiúsculo como m minúsculo
+        M_ages = age
+        M_old_name = name
+    if genre in 'Mm' and age > M_ages:
+        M_ages = age
+        M_old_name = name
+    if genre in 'Ff' and age < 20:
+        F_20 += 1
+
+age_average = sum_age / 4
+print("A média de idade do grupo é de {:.1f} ano.".format(age_average))
+print("O homem mais velho tem {} anos e se chama {}.".format(M_ages, M_old_name))
+print("Do grupo, {} mulher(es) tem idade abaixo de 20 anos.".format(F_20))
+
+
+#forma abaixo foi a que eu fiz, o jeito mais complicado ever! Não faça isso em casa!!!
+ages = [] #OK
+genres_F = [] #OK
+ages_F = [] #OK
+dictionary = {} #OK
+
+for person in range(1, 5):
+    name = str(input("Qual o nome da {}ª pessoa? ".format(person)))
+    age = int(input("Qual a idade da {}ª pessoa? ".format(person)))
+    ages.append(age)
+    print(''[ 1 ] Feminino
+[ 2 ] Masculino '')
+    genre = int(input("Qual o gênero da {}ª pessoa (1 ou 2)? ".format(person)))
+    if genre == 1:
+        genres_F.append(genre)
+        ages_F.append(age)
+    elif genre == 2:
+        dictionary[name] = age
+    else:
+        print("Código inválido. Tenta novamente!")
+
+media = ((ages[0] + ages[1] + ages[2] + ages[3])/person)
+print("A média das {} pessoas do grupo é de {:.2f} anos.".format(person, media))
+
+H_maisvelho = dictionary[max(dictionary, key=dictionary.get)]
+
+def getKeysByValues (dictOfElements, listOfValues):
+    listOfKeys = list()
+    listOfItems = dictOfElements.items()
+    for item in listOfItems:
+        if item[1] in listOfValues:
+            listOfKeys.append(item[0])
+    return listOfKeys
+
+listOfKeys = getKeysByValues(dictionary, [H_maisvelho])
+for key in listOfKeys:
+    key
+Fulano = key
+
+
+print("O homem mais velho é o {} com a idade de {:.0f} anos.".format(Fulano, H_maisvelho))
+
+soma = 0
+
+for age in ages_F:
+    if age >= 20:
+        soma = 0
+    else:
+        soma = soma + 1
+
+print("Do grupo, {} mulher(es) tem idade abaixo de 20 anos.".format(soma))
+'''
