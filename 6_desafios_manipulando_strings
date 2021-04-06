@@ -1,0 +1,69 @@
+#link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=a7DH88vk2Sk
+
+#MANIPULAÇÃO DE STRINGS
+'''
+#DESAFIO 022
+#crie um programa que leia o nome completo de uma pessoa e mostre:
+# - o nome com todas as letras maiúsculas
+# - o nome com todas minúsculas
+# - quantas letras ao todo (sem considerar os espaços)
+# - quantas letras tem o primeiro nome
+
+nome = str(input("Digite o nome completo: ")).strip() #utilizando 'strip', estou eliminando todos espaços antes e depois da minha string
+nomes = nome.split()
+
+print("Seu nome em letras maiúsculas é", nome.upper())
+print("Seu nome em letras minúsculas é", nome.lower())
+print("O seu nome tem o total de",len(nome) - nome.count(' ') , "letras")
+print("O seu primeiro nome é {} e tem {} letras".format(nomes[0], len(nomes[0])))
+
+#DESAFIO 023
+#faça um programa que leia de 0 a 9999 e mostre na tela cada um dos dígitos separados
+
+n = int(input("Digite um número de 0 a 9999: "))
+
+u = n // 1 % 10 #é possível partilhar um número usando a matemática
+d = n // 10 % 10
+c = n // 100 % 10
+m = n // 1000 % 10
+
+print(" unidade: {} \n dezena: {} \n centena: {} \n milhar: {}".format(u, d, c, m))
+
+#DESAFIO 024
+#crie um programa que leia o nome de uma cidade e diga se ela começa ou não com o nome "SANTO"
+
+city = str(input("Digite o nome da cidade: ")).strip() #é preciso eliminar os espaços para garantir o teste
+print(city[:5].lower() == 'santo') #usando lower para jogar tudo para minúsculo para não variar o resultado conforme escrita do user
+#número 5 é porque a palavra santo terminar o quinto item
+
+#DESAFIO 025
+#crie um programa que leia o nome de uma pessoa e diga se ela tem "SILVA" no nome
+
+nome = str(input("Digite o nome: ")).strip()
+
+print("Seu nome tem Silva? {}".format('silva' in nome.lower())) #para procurar uma string dentro de outra
+
+#DESAFIO 026
+#faça um programa que leia uma frase pelo teclado e mostre:
+#quantas vezes aparece a letra "A"
+#em que posição ela aparece pela primeira vez
+#em que posição ela aparece pela última vez
+
+frase = str(input("Digite uma frase qualquer: ")).lower().strip() #usando lower para saber todos os 'A' e 'a' na frase ao mesmo tempo
+
+x = frase.count("a")
+i = frase.find("a") + 1 #pois o primeiro dígito é zero, apenas para equalizar
+z = frase.rfind("a") + 1 #usando o 'r' para começar a procurar pela direita, ou seja, final da frase
+
+print(' A letra "A" aparece {} vezes na frase, \n sendo que na posição {} pela primeira vez \n e na posição {} pela última vez.'.format(x, i, z))
+
+#DESAFIO 027
+#faça um programa que leia o nome completo de uma pessoa, mostrando em seguida o primeiro e o último nome separadamente
+
+nome = str(input("Digite o nome completo: ")).strip()
+
+dividido = nome.split()
+len = len(dividido) - 1 #se não colocar o -1 aqui dá um erro dizendo que LIST INDEX OUT OF RANGE, uma vez que ele não vai encontrar o item na lista
+
+print(" Olá {}, \n o seu primeiro nome é {} \n e o último nome é {}.".format(nome, dividido[1], dividido[len]))
+'''
