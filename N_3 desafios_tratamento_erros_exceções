@@ -1,0 +1,218 @@
+#link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=xz2B3bfNjEk
+
+#TRATAMENTO DE ERROS E EXCEÇÕES
+
+'''#DESAFIO 113
+#reescreva a função leiaInt() que fizemos no DESAFIO 104, incluindo agora a possibilidade
+#da digitação de um número de tipo inválido. Aproveite e crie também uma função leiaFloat()
+#com a mesma funcionalidade.
+
+def leiaInt(msg):
+    while True:
+        try:
+            n = int(input(msg))
+        except (ValueError, TypeError):
+            print("\033[0;31mOps...por favor digite um número inteiro válido.\033[m")
+            continue #joga para o laço de novo, ou seja, se der erro ele vai pedir novamente o n
+        except KeyboardInterrupt:
+            print("\033[0;31mOpa, o programa foi descontinuado.\033[m")
+            return 0
+        else:
+            return n
+
+
+def leiaFloat(msg):
+    while True:
+        try:
+            n = float(input(msg))
+        except (ValueError, TypeError):
+            print("\033[0;31mOps...por favor digite um número inteiro válido.\033[m")
+            continue  # joga para o laço de novo, ou seja, se der erro ele vai pedir novamente o n
+        except KeyboardInterrupt:
+            print("\033[0;31mOpa, o programa foi descontinuado.\033[m")
+            return 0
+        else:
+            return n
+
+#Programa Principal
+
+n1 = leiaInt("Digite um número inteiro: ")
+n2 = leiaFloat("Digite um número real: ")
+print(f'Você digitou o número inteiro {n1} e o número real {n2}')
+
+# DESAFIO 114
+# crie um código em Python que teste se o site Pudim está acessível pelo computador usado.
+
+import urllib
+import urllib.request
+
+try:
+    site = urllib.request.urlopen('https://blog.bluefieldsdev.com/')
+except urllib.error.URLError:
+    print("Deu ruim...a página não está acessível.")
+else:
+    print("Tudo ok, página está acessível.")
+    print(site.read()) #consegue acessar conteúdo do site acessado
+'''
+#DESAFIO 115
+#crie um pequeno sistema modularizado que permita cadastrar pessoas pelo seu nome e idade em um arquivo de texto
+#simples. O sistema só vai ter 2 opções: cadastrar uma nova pessoa e listar todas as pessoas cadastradas.
+
+#from openpyxl import Workbook
+from time import sleep
+
+#wb = Workbook()
+#ws = wb.active
+#ws['A1'] = 'tabela do exercício 15'
+#ws['A2'] = 'NOMES'
+#ws['B2'] = 'IDADE'
+#wb.save("planilha.xlsx")
+
+def arquivo_existe(nome):
+    try:
+        a = open(nome, 'rt') #read text
+        a.close()
+    except FileNotFoundError:
+        return False
+    else:
+        return True
+
+
+def criar_arquivo(nome):
+    try:
+        a = open(nome, 'wt+') #write text, o + que faz a mágica criando o arquivo caso não exista igual
+        a.close()
+    except:
+        print("Houve um bug ao criar o arquivo.")
+    else:
+        print(f"Arquivo {nome} criado com sucesso \o/")
+
+def ler_arquivo(nome):
+    try:
+        a = open(nome, 'rt') #read text
+    except:
+        print("Houve um bug ao ler o arquivo.")
+    else:
+        título("PESSOAS CADASTRADAS")
+        for linha in a:
+            dado = linha.split(";")
+            dado[1] = dado[1].replace('\n', '') #substituindo o que foi adicionado no cadastro para sair bonitinho
+            print(f'{dado[0]:<30}{dado[1]:>3} ano(s)')
+    finally:
+        a.close()
+
+def cadastrar(arq, nome='<desconhecido>', idade=0):
+    try:
+        a = open(arq, 'at') #append text
+    except:
+        print("Houve um bug ao editar o arquivo.")
+    else:
+        try:
+            a.write(f"{nome};{idade}\n")
+        except:
+            print("Houve um bug ao adicionar informação no arquivo.")
+        else:
+            sleep(2)
+            print(f"Dados de {nome} foram registrados.")
+            a.close()
+    finally:
+        print(linha())
+
+#def salvar(): #para salvar a planilha toda vez que alterar em algum bloco de código
+#    wb.save("planilha.xlsx")
+
+def linha(tam = 40):
+    return '-' * tam
+
+def título(txt):
+    print(linha())
+    print(txt.center(40))
+    print(linha())
+
+def leiaInt(msg):
+    while True:
+        try:
+            n = int(input(msg))
+        except (ValueError, TypeError):
+            print("\033[0;31mOPS...por favor digite uma opção válida.\033[m")
+            continue  # joga para o laço de novo, ou seja, se der erro ele vai pedir novamente o n
+        except KeyboardInterrupt:
+            print("\033[0;31mOpa, o programa foi descontinuado.\033[m")
+            return 0
+        else:
+            return n
+
+def menu(lista):
+    c = 1
+    for item in lista:
+        print(f"\033[33m{c}\033[m -> \033[36m{item}\033[m")
+        c += 1
+    print(linha())
+
+
+#Programa Principal
+arq = 'DADOS.txt'
+if not arquivo_existe(arq):
+    criar_arquivo(arq)
+
+#nomes = ['Paulo', 'Talita']
+#ws['A3'] = nomes[0]
+#ws['A4'] = nomes[1]
+#idades = [33, 34]
+#ws['B3'] = idades[0]
+#ws['B4'] = idades[1]
+#salvar()
+
+título("MENU PRINCIPAL")
+
+menu(["Ver pessoas cadastradas", "Cadastrar uma nova pessoa", "Salvar e sair"])
+
+
+while True:
+    opcao = leiaInt("\033[35mSua opção: \033[m")
+    if opcao == 1:
+        sleep(2)
+        #código ver todos os nomes com idades cadastrados
+        ler_arquivo(arq)
+        print(linha())
+        sleep(2)
+        título("MENU PRINCIPAL")
+        menu(["Ver pessoas cadastradas", "Cadastrar uma nova pessoa", "Salvar e sair"])
+#        print(nomes, idades)
+#        print(linha())
+#        sleep(3)
+    elif opcao == 2:
+        sleep(2)
+        #código para cadastrar uma pessoa e sua idade
+        título("Novo cadastro")
+        nome = str(input("Nome: "))
+        idade = leiaInt("Idade: ")
+        cadastrar(arq, nome, idade)
+        sleep(2)
+        título("MENU PRINCIPAL")
+        menu(["Ver pessoas cadastradas", "Cadastrar uma nova pessoa", "Salvar e sair"])
+#        c = 5
+#        while True:
+#            título("Opção 2 -> Cadastrar uma nova pessoa".center(40))
+#            nome = str(input("Nome: "))
+#            nomes.append(nome)
+#            célula_nome = str(f'A{c}')
+#            ws[célula_nome] = nomes[int(c-3)]
+#            idade = int(input("Idade: "))
+#            idades.append(idade)
+#            célula_idade = str(f'B{c}')
+#            ws[célula_idade] = idades[int(c-3)]
+#            c =+ 1
+#            salvar()
+#            sleep(1)
+#            print(f'Cadastro realizado de {nome} com {idade} ano(s).'.center(40))
+#            print(linha())
+#            break
+    elif opcao == 3:
+#        salvar()
+        sleep(2)
+        título("Saindo do sistema...até a próxima!".center(40))
+        break
+    else:
+        print("\033[31mOpa...digite uma opção válida.\033[m")
+        sleep(2)
