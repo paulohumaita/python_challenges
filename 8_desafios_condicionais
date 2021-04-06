@@ -1,0 +1,129 @@
+#link da aula gratuita no YouTube -> https://www.youtube.com/watch?v=K10u3XIf1-Q
+
+#CONDIÇÕES
+'''
+#DESAFIO 028
+#escreva um programa que faça o computador "pensar" em um número inteiro entre 0 e 5
+#e peça para o usuário tentar descobrir qual foi o número escolhido pelo computador
+#o programa deverá escrever na tela se o usuário venceu ou perdeu
+
+from random import choice
+from time import sleep #importando somente os métodos usados de cada biblioteca
+
+print('-' * 70)
+print("Computador escolhendo um número de 0 a 5...")
+sleep(2) #esse método é bem legal, dá um sentido de experiência para o usuário como se o computador estivesse mesmo pensando...
+
+numeros = (0, 1, 2, 3, 4, 5)
+n = choice(numeros) #poderia usar 'radint' também, daí ficaria n = radint(0, 5)
+print('-' * 70)
+print("Pronto! O computador escolheu o número.")
+sleep(1)
+print('-' * 70)
+
+chute = int(input("Qual você acha que foi a escolha do computador? "))
+if chute == n:
+    print('-' * 70)
+    print("O computador escolheu o número {}. Parabéns, você venceu!".format(n))
+
+else:
+    print('-' * 70)
+    print("O computador escolheu o número {}. Você perdeu, tente novamente!".format(n))
+print('-' * 70)
+
+#DESAFIO 029
+#escreva um programa que leia a velocidade de um carro
+#se o carro ultrapassar 80km/h, mostre a mensagem dizendo que ele foi multado
+#a multa vai custar R$ 7,00 por cada km acima do limite
+
+speed = float(input("Qual é a velocidade do carro? "))
+
+if speed > 80:
+    print("Olá! Você foi multado em R$ {:.2f}.".format(7*(speed-80)))
+else:
+    print("Continue respeitando as leis de trânsito e seja feliz!")
+
+#DESAFIO 030
+#crie um programa que leia um número inteiro e mostre na tela se ele é PAR ou ÍMPAR
+
+n = int(input("Digite um número: "))
+
+if (n % 2) == 0:
+    print("O número {} é PAR.".format(n))
+else:
+    print("O número {} é ÍMPAR.".format(n))
+
+#DESAFIO 031
+#desenvolva um programa que pergunte a distância de um viagem em km
+#calcule o preço da passagem, cobrando R$ 0,50 por km para viagens de até 200Km
+#e R$ 0,45 para viagens mais longas
+
+distance = float(input("Qual é a distância da viagem (em km)? "))
+
+if distance <= 200: #uma alternativa também seria fazer um IF simplificado, ficaria assim ao definir a variávelo do preço: preco = distancia * 0.50 if distance <= 200 else distance * 0.45
+    print("O preço da passagem é R$ {:.2f}.".format(0.5*distance))
+else:
+    print("O preço da passagem é R$ {:.2f}".format(0.45*distance))
+
+#DESAFIO 032
+#faça um programa que leia um ano qualquer e mostre se ele é BISSEXTO.
+
+from datetime import date
+
+year = int(input("Digite um ano ou 0 para analisar o ano atual: "))
+
+if year == 0:
+    year = date.today().year #se user colocar 0, então pegar somente o ano atual configurado na máquina
+
+if year % 400 == 0 or year % 4 == 0 and year % 100 != 0:
+    print("Sim, o ano {} é BISEXTO.".format(year))
+else:
+    print("Este ano de {} não é BISEXTO.".format(year))
+
+#DESAFIO 033
+#faça um programa que leia três números e mostre qual é o maior e qual é o menor
+
+n1 = int(input("Digite o primeiro número: ")) #muito importante colocar 'str' na frente. Caso contrário, a função 'sort' não vai funcionar adequadamente
+n2 = int(input("Digite o segundo número: "))
+n3 = int(input("Digite o terceiro número: "))
+
+menor = n1 #ao preestabelecer uma variável provável, eu consigo eliminar um 'IF' do código
+if n2 < n1 and n2 < n3:
+    menor = n2
+if n3 < n1 and n3 < n2:
+    menor = n3
+
+maior = n1 #ao preestabelecer uma variável provável, eu consigo eliminar um 'IF' do código
+if n2 > n1 and n2 > n3:
+    maior = n2
+if n3 > n1 and n3 > n2:
+    maior = n3
+
+print("O maior número é {} e o menor número é {}.".format(maior, menor))
+
+
+#DESAFIO 034
+#escreva um programa que pergunte o salário de um funcionário e calcule o valor do seu aumento
+#para salários superiores a R$ 1.250,00, calcule um aumento de 10%
+#para salários inferiores ou iguais, é de 15%
+
+salario = float(input("Qual o salário do funcionário? R$"))
+
+if salario > 1250:
+    print("Para o salário de R$ {:.2f}, o aumento será R$ {:.2f}, sendo o novo salário de R$ {:.2f}.".format(salario, (salario * 0.1), (salario * 1.10)))
+else:
+    print("Para o salário de R$ {:.2f}, o aumento será R$ {:.2f}, sendo o novo salário de R$ {:.2f}.".format(salario, (salario * 0.15), (salario * 1.15)))
+
+#DESAFIO 035
+#desenvolva um programa que leia o comprimento de três retas e diga ao usuário
+#se elas podem ou não formar um triângulo
+
+r1 = float(input("Qual o comprimento da primeira reta? "))
+r2 = float(input("Qual o comprimento da segunda reta? "))
+r3 = float(input("Qual o comprimento da terceira reta? "))
+
+if r1 < (r2 + r3) and r2 < (r1 + r3) and r3 < (r1 + r2):
+    print("Você pode formar um triângulo com essas retas.")
+else:
+    print("Infelizmente não vai rolar você formar um triângulo com essas retas.")
+'''
